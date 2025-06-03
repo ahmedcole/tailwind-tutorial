@@ -1,5 +1,19 @@
 import "./style.css";
 
+
+
+document.querySelector(".modeToggle").addEventListener("click", ()=>{
+  document.querySelector('html').classList.toggle("dark")
+  document.querySelector(".bi-moon-stars").classList.toggle("hidden");
+  document.querySelector(".bi-brightness-high").classList.toggle("hidden");
+})
+document.querySelector(".modeToggle-sidebar").addEventListener("click", ()=>{
+  document.querySelector('html').classList.toggle("dark")
+  document.querySelector(".bi-moon-stars-sidebar").classList.toggle("hidden");
+  document.querySelector(".bi-brightness-high-sidebar").classList.toggle("hidden");
+})
+
+
 const sidebar = document.querySelector("#sidebar");
 const sidebarToggle = document.querySelector(".hamburger");
 // Toggle sidebar visibility
@@ -12,6 +26,8 @@ sidebar.classList.add("-translate-x-400");
 sidebar.classList.remove("-translate-x-400");
 sidebar.classList.add("-translate-x-25");
 }});
+
+
 
 
 
