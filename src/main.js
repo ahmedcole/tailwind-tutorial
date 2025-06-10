@@ -1,35 +1,67 @@
 import "./style.css";
 
+const html = document.querySelector("html");
 
+// Desktop
+const modeToggle = document.querySelector(".modeToggle");
+const icon1Desktop = document.querySelector(".bi-moon-stars");
+const icon2Desktop = document.querySelector(".bi-brightness-high");
 
-document.querySelector(".modeToggle").addEventListener("click", ()=>{
-  document.querySelector('html').classList.toggle("dark")
-  document.querySelector(".bi-moon-stars").classList.toggle("hidden");
-  document.querySelector(".bi-brightness-high").classList.toggle("hidden");
-})
-document.querySelector(".modeToggle-sidebar").addEventListener("click", ()=>{
-  document.querySelector('html').classList.toggle("dark")
-  document.querySelector(".bi-moon-stars-sidebar").classList.toggle("hidden");
-  document.querySelector(".bi-brightness-high-sidebar").classList.toggle("hidden");
-})
+// Sidebar
+const sidebarModeToggle = document.querySelector(".modeToggle-sidebar");
+const icon1SideBar = document.querySelector(".bi-moon-stars-sidebar");
+const icon2sideBar = document.querySelector(".bi-brightness-high-sidebar");
 
+// Apply saved theme
+if (localStorage.getItem("theme") === "dark") {
+  html.classList.add("dark");
+}
+
+// Sync icons on page load
+function syncIcons(icon1, icon2) {
+  const isDark = html.classList.contains("dark");
+  if (!icon1 || !icon2) return;
+  if (isDark) {
+    icon1.classList.add("hidden");
+    icon2.classList.remove("hidden");
+  } else {
+    icon1.classList.remove("hidden");
+    icon2.classList.add("hidden");
+  }
+}
+
+syncIcons(icon1Desktop, icon2Desktop);
+syncIcons(icon1SideBar, icon2sideBar);
+
+// Toggle theme and icons
+function modeSwitching(toDark, icon1, icon2) {
+  if (!toDark || !icon1 || !icon2) return;
+
+  toDark.addEventListener("click", () => {
+    html.classList.toggle("dark");
+    icon1.classList.toggle("hidden");
+    icon2.classList.toggle("hidden");
+    const theme = html.classList.contains("dark") ? "dark" : "light";
+    localStorage.setItem("theme", theme);
+  });
+}
+
+modeSwitching(modeToggle, icon1Desktop, icon2Desktop);
+modeSwitching(sidebarModeToggle, icon1SideBar, icon2sideBar);
 
 const sidebar = document.querySelector("#sidebar");
 const sidebarToggle = document.querySelector(".hamburger");
 // Toggle sidebar visibility
 
 sidebarToggle.addEventListener("click", () => {
-if (sidebar.classList.contains("-translate-x-25")) {
-sidebar.classList.remove("-translate-x-25");
-sidebar.classList.add("-translate-x-400");
-}else if (sidebar.classList.contains("-translate-x-400")) {
-sidebar.classList.remove("-translate-x-400");
-sidebar.classList.add("-translate-x-25");
-}});
-
-
-
-
+  if (sidebar.classList.contains("-translate-x-25")) {
+    sidebar.classList.remove("-translate-x-25");
+    sidebar.classList.add("-translate-x-400");
+  } else if (sidebar.classList.contains("-translate-x-400")) {
+    sidebar.classList.remove("-translate-x-400");
+    sidebar.classList.add("-translate-x-25");
+  }
+});
 
 const track = document.querySelector(".carousel-track");
 const cards = Array.from(track.children);
